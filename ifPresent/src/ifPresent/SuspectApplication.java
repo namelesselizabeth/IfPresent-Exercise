@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class SuspectApplication {
@@ -17,7 +18,9 @@ public class SuspectApplication {
 		SuspectApplication susApp = new SuspectApplication();
 		
 		susApp.readFile("InterpolWatchReport-Week1.csv");
-		susApp.readSuspects();
+		//susApp.readFile("InterpolWatchReport-Week2.csv");
+		//susApp.readFile("InterpolWatchReport-Week3.csv");
+		susApp.readSuspects(susLoc);
 	}
 	public void readFile(String file) throws IOException, FileNotFoundException, NullPointerException{
 		BufferedReader fr = null;
@@ -44,14 +47,13 @@ public class SuspectApplication {
 		
 	}
 	
-	public void readSuspects() {
+	public void readSuspects(ArrayList<SuspectLocation> susLoc2) {
 
-		susLoc.stream()
-			.filter(s -> s != null)
-			  .filter(suspect -> suspect.getName().equalsIgnoreCase("CARMEN SANDIEGO"))
-			  .map(suspect -> suspect.getCountry())
-			  .forEach(country -> System.out.println("Carmen Sandiego is in " + country));
-			  
+	   Optional<SuspectLocation> Suspect = susLoc2.stream()
+			  .filter(s -> s != null)
+			  .filter(s -> s.getName().equalsIgnoreCase("CARMEN SANDIEGO"))
+			  .findAny();
 		
+		Suspect.ifPresent(location -> System.out.println("Carmen Sandiego is in" + location.getCountry()));
 	}
 }
