@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class SuspectApplication {
 
@@ -31,7 +33,6 @@ public class SuspectApplication {
 			
 			while ((line = fr.readLine()) != null) {
 				lines = line.split(",");
-				//susLoc.add(new SuspectLocation(lines[0], lines[1]));
 				SuspectLocation suspectLocation = new SuspectLocation(lines[0], lines[1]);
 				susLoc.add(suspectLocation);
 			}
@@ -43,15 +44,14 @@ public class SuspectApplication {
 		
 	}
 	
-	public String readSuspects() {
-		String suspect = susLoc.stream()
-								.filter(susLoc -> susLoc.getName().equalsIgnoreCase("Carmen Sandiego"))
-								.forEach(susLoc -> System.out.println(susLoc.getName()));
-				
-			//susLoc.stream()
-			//.filter(susLoc -> susLoc != null)
-			//.filter(susLoc -> susLoc.getName().equalsIgnoreCase("Carmen Sandiego"))
-		//	.forEach(susLoc -> System.out.println(susLoc.getName()));
-		return suspect;
+	public void readSuspects() {
+
+		susLoc.stream()
+			.filter(s -> s != null)
+			  .filter(suspect -> suspect.getName().equalsIgnoreCase("CARMEN SANDIEGO"))
+			  .map(suspect -> suspect.getCountry())
+			  .forEach(country -> System.out.println("Carmen Sandiego is in " + country));
+			  
+		
 	}
 }
