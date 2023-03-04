@@ -18,9 +18,9 @@ public class SuspectApplication {
 		SuspectApplication susApp = new SuspectApplication();
 		
 		susApp.readFile("InterpolWatchReport-Week1.csv");
-		//susApp.readFile("InterpolWatchReport-Week2.csv");
-		//susApp.readFile("InterpolWatchReport-Week3.csv");
-		susApp.readSuspects(susLoc);
+		susApp.readFile("InterpolWatchReport-Week2.csv");
+		susApp.readFile("InterpolWatchReport-Week3.csv");
+		susApp.readSuspects().ifPresent(location -> System.out.println("Carmen Sandiego is in" + location.getCountry()));
 	}
 	public void readFile(String file) throws IOException, FileNotFoundException, NullPointerException{
 		BufferedReader fr = null;
@@ -47,13 +47,12 @@ public class SuspectApplication {
 		
 	}
 	
-	public void readSuspects(ArrayList<SuspectLocation> susLoc2) {
+	public Optional<SuspectLocation> readSuspects() {
 
-	   Optional<SuspectLocation> Suspect = susLoc2.stream()
+	   Optional<SuspectLocation> Suspect = susLoc.stream()
 			  .filter(s -> s != null)
 			  .filter(s -> s.getName().equalsIgnoreCase("CARMEN SANDIEGO"))
 			  .findAny();
-		
-		Suspect.ifPresent(location -> System.out.println("Carmen Sandiego is in" + location.getCountry()));
+	return Suspect;
 	}
 }
