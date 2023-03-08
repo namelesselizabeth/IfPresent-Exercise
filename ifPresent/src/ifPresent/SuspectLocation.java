@@ -10,8 +10,8 @@ public class SuspectLocation {
 	}
 	
 	public SuspectLocation(String country, String name) {
-		name = this.name;
-		country = this.country;
+		this.name = name;
+		this.country = country;
 	}
 
 	public String getName() {
